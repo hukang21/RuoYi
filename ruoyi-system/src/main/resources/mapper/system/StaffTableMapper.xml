@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StaffTableMapper">
+    
+    <resultMap type="StaffTable" id="StaffTableResult">
+        <result property="id"    column="id"    />
+        <result property="员工号"    column="员工号"    />
+        <result property="姓名"    column="姓名"    />
+        <result property="性别"    column="性别"    />
+        <result property="职位"    column="职位"    />
+        <result property="工资"    column="工资"    />
+    </resultMap>
+
+    <sql id="selectStaffTableVo">
+        select id, 员工号, 姓名, 性别, 职位, 工资 from staff_table
+    </sql>
+
+    <select id="selectStaffTableList" parameterType="StaffTable" resultMap="StaffTableResult">
+        <include refid="selectStaffTableVo"/>
+        <where>  
+            <if test="员工号 != null "> and 员工号 = #{员工号}</if>
+            <if test="姓名 != null  and 姓名 != ''"> and 姓名 = #{姓名}</if>
+            <if test="性别 != null  and 性别 != ''"> and 性别 = #{性别}</if>
+            <if test="职位 != null  and 职位 != ''"> and 职位 = #{职位}</if>
+            <if test="工资 != null "> and 工资 = #{工资}</if>
+        </where>
+    </select>
+    
+    <select id="selectStaffTableById" parameterType="Long" resultMap="StaffTableResult">
+        <include refid="selectStaffTableVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertStaffTable" parameterType="StaffTable" useGeneratedKeys="true" keyProperty="id">
+        insert into staff_table
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="员工号 != null">员工号,</if>
+            <if test="姓名 != null">姓名,</if>
+            <if test="性别 != null">性别,</if>
+            <if test="职位 != null">职位,</if>
+            <if test="工资 != null">工资,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="员工号 != null">#{员工号},</if>
+            <if test="姓名 != null">#{姓名},</if>
+            <if test="性别 != null">#{性别},</if>
+            <if test="职位 != null">#{职位},</if>
+            <if test="工资 != null">#{工资},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStaffTable" parameterType="StaffTable">
+        update staff_table
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="员工号 != null">员工号 = #{员工号},</if>
+            <if test="姓名 != null">姓名 = #{姓名},</if>
+            <if test="性别 != null">性别 = #{性别},</if>
+            <if test="职位 != null">职位 = #{职位},</if>
+            <if test="工资 != null">工资 = #{工资},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStaffTableById" parameterType="Long">
+        delete from staff_table where id = #{id}
+    </delete>
+
+    <delete id="deleteStaffTableByIds" parameterType="String">
+        delete from staff_table where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
