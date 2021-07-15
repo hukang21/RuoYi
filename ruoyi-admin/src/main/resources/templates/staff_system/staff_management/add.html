@@ -9,31 +9,35 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">员工号：</label>
                 <div class="col-sm-8">
-                    <input name="员工号" class="form-control" type="text">
+                    <input name="staffId" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
                 <label class="col-sm-3 control-label">姓名：</label>
                 <div class="col-sm-8">
-                    <input name="姓名" class="form-control" type="text">
+                    <input name="staffName" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
                 <label class="col-sm-3 control-label">性别：</label>
                 <div class="col-sm-8">
-                    <input name="性别" class="form-control" type="text">
+                    <select name="staffSex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">    
                 <label class="col-sm-3 control-label">职位：</label>
                 <div class="col-sm-8">
-                    <input name="职位" class="form-control" type="text">
+                    <label th:each="role:${roles}" class="check-box">
+                        <input name="staffJob" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}" th:disabled="${role.status == '1'}">
+                    </label>
                 </div>
             </div>
             <div class="form-group">    
                 <label class="col-sm-3 control-label">工资：</label>
                 <div class="col-sm-8">
-                    <input name="工资" class="form-control" type="text">
+                    <input name="staffSlr" class="form-control" type="text">
                 </div>
             </div>
         </form>

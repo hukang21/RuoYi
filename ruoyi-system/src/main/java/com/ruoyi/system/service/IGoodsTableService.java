@@ -7,7 +7,7 @@ import com.ruoyi.system.domain.GoodsTable;
  * 商品管理Service接口
  * 
  * @author ruoyi
- * @date 2021-07-06
+ * @date 2021-07-09
  */
 public interface IGoodsTableService 
 {
@@ -18,6 +18,15 @@ public interface IGoodsTableService
      * @return 商品管理
      */
     public GoodsTable selectGoodsTableById(Long id);
+
+    /**
+     * 查询商品管理
+     *
+     * @param goodsTable 商品管理ID
+     * @return 商品管理
+     */
+    public GoodsTable selectGoodsTableByGoodsId(GoodsTable goodsTable);
+
 
     /**
      * 查询商品管理列表

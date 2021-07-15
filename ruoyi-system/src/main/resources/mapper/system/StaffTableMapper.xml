@@ -6,25 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="StaffTable" id="StaffTableResult">
         <result property="id"    column="id"    />
-        <result property="员工号"    column="员工号"    />
-        <result property="姓名"    column="姓名"    />
-        <result property="性别"    column="性别"    />
-        <result property="职位"    column="职位"    />
-        <result property="工资"    column="工资"    />
+        <result property="staffId"    column="staffId"    />
+        <result property="staffName"    column="staffName"    />
+        <result property="staffSex"    column="staffSex"    />
+        <result property="staffJob"    column="staffJob"    />
+        <result property="staffSlr"    column="staffSlr"    />
     </resultMap>
 
     <sql id="selectStaffTableVo">
-        select id, 员工号, 姓名, 性别, 职位, 工资 from staff_table
+        select id, staffId, staffName, staffSex, staffJob, staffSlr from staff_table
     </sql>
 
     <select id="selectStaffTableList" parameterType="StaffTable" resultMap="StaffTableResult">
         <include refid="selectStaffTableVo"/>
         <where>  
-            <if test="员工号 != null "> and 员工号 = #{员工号}</if>
-            <if test="姓名 != null  and 姓名 != ''"> and 姓名 = #{姓名}</if>
-            <if test="性别 != null  and 性别 != ''"> and 性别 = #{性别}</if>
-            <if test="职位 != null  and 职位 != ''"> and 职位 = #{职位}</if>
-            <if test="工资 != null "> and 工资 = #{工资}</if>
+            <if test="staffId != null "> and staffId = #{staffId}</if>
+            <if test="staffName != null  and staffName != ''"> and staffName like concat('%', #{staffName}, '%')</if>
+            <if test="staffSex != null  and staffSex != ''"> and staffSex = #{staffSex}</if>
+            <if test="staffJob != null  and staffJob != ''"> and staffJob = #{staffJob}</if>
+            <if test="staffSlr != null "> and staffSlr = #{staffSlr}</if>
         </where>
     </select>
     
@@ -36,29 +36,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertStaffTable" parameterType="StaffTable" useGeneratedKeys="true" keyProperty="id">
         insert into staff_table
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="员工号 != null">员工号,</if>
-            <if test="姓名 != null">姓名,</if>
-            <if test="性别 != null">性别,</if>
-            <if test="职位 != null">职位,</if>
-            <if test="工资 != null">工资,</if>
+            <if test="staffId != null">staffId,</if>
+            <if test="staffName != null">staffName,</if>
+            <if test="staffSex != null">staffSex,</if>
+            <if test="staffJob != null">staffJob,</if>
+            <if test="staffSlr != null">staffSlr,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="员工号 != null">#{员工号},</if>
-            <if test="姓名 != null">#{姓名},</if>
-            <if test="性别 != null">#{性别},</if>
-            <if test="职位 != null">#{职位},</if>
-            <if test="工资 != null">#{工资},</if>
+            <if test="staffId != null">#{staffId},</if>
+            <if test="staffName != null">#{staffName},</if>
+            <if test="staffSex != null">#{staffSex},</if>
+            <if test="staffJob != null">#{staffJob},</if>
+            <if test="staffSlr != null">#{staffSlr},</if>
          </trim>
     </insert>
 
     <update id="updateStaffTable" parameterType="StaffTable">
         update staff_table
         <trim prefix="SET" suffixOverrides=",">
-            <if test="员工号 != null">员工号 = #{员工号},</if>
-            <if test="姓名 != null">姓名 = #{姓名},</if>
-            <if test="性别 != null">性别 = #{性别},</if>
-            <if test="职位 != null">职位 = #{职位},</if>
-            <if test="工资 != null">工资 = #{工资},</if>
+            <if test="staffId != null">staffId = #{staffId},</if>
+            <if test="staffName != null">staffName = #{staffName},</if>
+            <if test="staffSex != null">staffSex = #{staffSex},</if>
+            <if test="staffJob != null">staffJob = #{staffJob},</if>
+            <if test="staffSlr != null">staffSlr = #{staffSlr},</if>
         </trim>
         where id = #{id}
     </update>

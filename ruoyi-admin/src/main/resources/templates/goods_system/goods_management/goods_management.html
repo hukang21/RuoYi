@@ -2,7 +2,6 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('商品管理列表')" />
-
 </head>
 <body class="gray-bg">
      <div class="container-div">
@@ -35,7 +34,7 @@
             <div class="col-sm-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5></h5>
+                        <h5>饼状图</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -60,7 +59,6 @@
                 </div>
             </div>
 
-
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="goods_system:goods_management:add">
                     <i class="fa fa-plus"></i> 添加
@@ -75,13 +73,12 @@
                     <i class="fa fa-download"></i> 导出
                 </a>
             </div>
-
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
             </div>
         </div>
     </div>
-    <th:block th:include="include :: footer" />
+     <th:block th:include="include :: footer" />
      <th:block th:include="include :: echarts-js" />
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('goods_system:goods_management:edit')}]];
@@ -130,59 +127,58 @@
             $.table.init(options);
         });
 
-        $(function() {
-            $.ajax({
-                url: prefix + "/list",
-                method: "POST",
-                success: function (data){
-                    // 取从数据库中得到的数据
-                    testDemo.push(data.rows);
-                    console.log(testDemo)
-                    // 最终结果
-                    var result = [];
-                    // 遍历数据，按要求进行拼装
-                    testDemo[0].forEach(item => {
-                        var res = {value: item.goodsNum,
-                            name: item.goodsName};
-                        result.push(res);
-                    })
-                    var pieChart = echarts.init(document.getElementById("echarts-pie-chart"));
-                    var pieoption = {
-                        title : {
-                            text: '商品销量占比',
-                            x:'center'
-                        },
-                        tooltip : {
-                            trigger: 'item',
-                            formatter: "{a} <br/>{b} : {c} ({d}%)"
-                        },
-                        legend: {
-                            orient : 'vertical',
-                            x : 'left',
-                            data:['商品编号','商品名','库存']
-                        },
-                        calculable : true,
-                        series : [
-                            {
-                                name:'访问来源',
-                                type:'pie',
-                                radius : '55%',
-                                center: ['50%', '60%'],
-                                data:result
-                            }
-                        ]
-                    };
-                    pieChart.setOption(pieoption);
-                    $(window).resize(pieChart.resize);
-                }
-            })
+        $.ajax({
+            url: prefix + "/list",
+            method: "POST",
+            success: function (data){
+                // 取从数据库中得到的数据
+                testDemo.push(data.rows);
+                console.log(testDemo)
+                // 最终结果
+                var result = [];
+                // 遍历数据，按要求进行拼装
+                testDemo[0].forEach(item => {
+                    console.log("-----")
+                    console.log(item)
+                    var res = {value: item.goodsNum,
+                        name: item.goodsName};
+                    result.push(res);
+                })
+                var pieChart = echarts.init(document.getElementById("echarts-pie-chart"));
+                var pieoption = {
+                    title : {
+                        text: '商品库存占比',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'left',
+                        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'访问来源',
+                            type:'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:result
+                        }
+                    ]
+                };
+                pieChart.setOption(pieoption);
+                $(window).resize(pieChart.resize);
+            }
+        })
 
 
-            $.table.init(options);
+        $.table.init(options);
 
-            console.log(testDemo);
-
-        });
+        console.log(testDemo);
 
     </script>
 </body>

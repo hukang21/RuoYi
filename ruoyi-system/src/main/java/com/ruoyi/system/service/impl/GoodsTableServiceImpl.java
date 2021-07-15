@@ -12,7 +12,7 @@ import com.ruoyi.common.core.text.Convert;
  * 商品管理Service业务层处理
  * 
  * @author ruoyi
- * @date 2021-07-06
+ * @date 2021-07-09
  */
 @Service
 public class GoodsTableServiceImpl implements IGoodsTableService 
@@ -30,6 +30,11 @@ public class GoodsTableServiceImpl implements IGoodsTableService
     public GoodsTable selectGoodsTableById(Long id)
     {
         return goodsTableMapper.selectGoodsTableById(id);
+    }
+
+    @Override
+    public GoodsTable selectGoodsTableByGoodsId(GoodsTable goodsTable) {
+        return goodsTableMapper.selectGoodsTableByGoodsId(goodsTable);
     }
 
     /**

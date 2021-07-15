@@ -12,23 +12,26 @@
                         <ul>
                             <li>
                                 <label>员工号：</label>
-                                <input type="text" name="员工号"/>
+                                <input type="text" name="staffId"/>
                             </li>
                             <li>
                                 <label>姓名：</label>
-                                <input type="text" name="姓名"/>
+                                <input type="text" name="staffName"/>
                             </li>
                             <li>
                                 <label>性别：</label>
-                                <input type="text" name="性别"/>
+                                <select name="staffSex">
+                                    <option value="">所有</option>
+                                    <option value="-1">代码生成请选择字典属性</option>
+                                </select>
                             </li>
                             <li>
                                 <label>职位：</label>
-                                <input type="text" name="职位"/>
+                                <input type="text" name="staffJob"/>
                             </li>
                             <li>
                                 <label>工资：</label>
-                                <input type="text" name="工资"/>
+                                <input type="text" name="staffSlr"/>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -60,11 +63,12 @@
                                 <i class="fa fa-times"></i>
                             </a>
                         </div>
-                        <div class="ibox-content">
-                            <div class="echarts" id="echarts-pie-chart"></div>
-                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="echarts-pie-chart"></div>
                     </div>
                 </div>
+            </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="staff_system:staff_management:add">
@@ -85,13 +89,14 @@
             </div>
         </div>
     </div>
-    <th:block th:include="include :: footer" />
+     <th:block th:include="include :: footer" />
      <th:block th:include="include :: echarts-js" />
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('staff_system:staff_management:edit')}]];
         var removeFlag = [[${@permission.hasPermi('staff_system:staff_management:remove')}]];
         var prefix = ctx + "staff_system/staff_management";
         var testDemo = [];
+
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -109,23 +114,23 @@
                     visible: false
                 },
                 {
-                    field: '员工号',
+                    field: 'staffId',
                     title: '员工号'
                 },
                 {
-                    field: '姓名',
+                    field: 'staffName',
                     title: '姓名'
                 },
                 {
-                    field: '性别',
+                    field: 'staffSex',
                     title: '性别'
                 },
                 {
-                    field: '职位',
+                    field: 'staffJob',
                     title: '职位'
                 },
                 {
-                    field: '工资',
+                    field: 'staffSlr',
                     title: '工资'
                 },
                 {
@@ -141,66 +146,7 @@
             };
             $.table.init(options);
         });
-        $.ajax({
-            url: prefix + "/list",
-            method: "POST",
-            success: function (data){
-                // 取从数据库中得到的数据
-                testDemo.push(data.rows);
-                console.log(testDemo)
-                // 最终结果
-                var result = [];
-                // 遍历数据，按要求进行拼装
-                testDemo[0].forEach(item => {
-                    console.log("-----")
-                    console.log(item)
-                    var res = {value: item.age,
-                        name: item.name};
-                    result.push(res);
-                })
-                var funnelChart = echarts.init(document.getElementById("echarts-funnel-chart"));
-                var funneloption = {
-                    title : {
-                        text: '漏斗图',
-                        subtext: '纯属虚构'
-                    },
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c}%"
-                    },
-                    legend: {
-                        data : ['展现','点击','访问','咨询','订单']
-                    },
-                    calculable : true,
-                    series : [
-                        {
-                            name:'漏斗图',
-                            type:'funnel',
-                            width: '40%',
-                            data:result
-                        },
-                        {
-                            name:'金字塔',
-                            type:'funnel',
-                            x : '50%',
-                            sort : 'ascending',
-                            itemStyle: {
-                                normal: {
-                                    // color: 各异,
-                                    label: {
-                                        position: 'left'
-                                    }
-                                }
-                            },
-                            data:data
-                        }
-                    ]
-                };
 
-                funnelChart.setOption(funneloption);
-                $(window).resize(funnelChart.resize);
-            }
-        })
         $.ajax({
             url: prefix + "/list",
             method: "POST",
@@ -214,15 +160,15 @@
                 testDemo[0].forEach(item => {
                     console.log("-----")
                     console.log(item)
-                    var res = {value: item.age,
-                        name: item.name};
+                    var res = {value: item.staffSlr,
+                        name: item.staffName};
                     result.push(res);
                 })
                 var pieChart = echarts.init(document.getElementById("echarts-pie-chart"));
                 var pieoption = {
                     title : {
-                        text: '某站点用户访问来源',
-                        subtext: '纯属虚构',
+                        text: '数据图',
+                        subtext: '员工工资分布图',
                         x:'center'
                     },
                     tooltip : {
@@ -253,13 +199,7 @@
 
         $.table.init(options);
 
-        console.log(
-        );
-
-        });
-
-
-
+        console.log(testDemo);
 
     </script>
 </body>

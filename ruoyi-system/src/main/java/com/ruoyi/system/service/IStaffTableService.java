@@ -7,7 +7,7 @@ import com.ruoyi.system.domain.StaffTable;
  * 员工管理Service接口
  * 
  * @author ruoyi
- * @date 2021-07-06
+ * @date 2021-07-09
  */
 public interface IStaffTableService 
 {

@@ -7,7 +7,7 @@ import com.ruoyi.system.domain.GoodsTable;
  * 商品管理Mapper接口
  * 
  * @author ruoyi
- * @date 2021-07-06
+ * @date 2021-07-09
  */
 public interface GoodsTableMapper 
 {
@@ -18,6 +18,8 @@ public interface GoodsTableMapper
      * @return 商品管理
      */
     public GoodsTable selectGoodsTableById(Long id);
+
+    public GoodsTable selectGoodsTableByGoodsId(GoodsTable goodsTable);
 
     /**
      * 查询商品管理列表

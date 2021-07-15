@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('主子表提交')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="gray-bg">
+<div class="main-content">
+    <div class="form-horizontal">
+        <h4 class="form-header h4">购物信息</h4>
+        <div class="row">
+            <form id="form-add" class="form-horizontal">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">商品编号：</label>
+                    <div class="col-sm-8">
+                        <input name="name" placeholder="请输入商品编号" class="form-control" type="text" maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">商品数量：</label>
+                    <div class="col-sm-8">
+                        <input name="name" id="num" placeholder="请输入商品数量" class="form-control" type="text" maxlength="30">
+                        </input>
+                        <br><br><br>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitProduct()"><i class="fa fa-check"></i>提交</button>&nbsp;
+        </div>
+        <h4 class="form-header h4">客户购物商品数据</h4>
+        <div class="row">
+            <form id="form">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-white btn-sm" onclick="addColumn()"><i class="fa fa-plus"> 增加</i></button>
+                    <button type="button" class="btn btn-white btn-sm" onclick="sub.delColumn()"><i class="fa fa-minus"> 删除</i></button>
+                    <div class="col-sm-12 select-table table-striped">
+                        <table id="bootstrap-table"></table>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>购买</button>&nbsp;
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>取消</button>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: datetimepicker-js" />
+<script th:src="@{/js/jquery.tmpl.js}"></script>
+<script th:inline="javascript">
+    var prefix = "/" + "goods_system/goods_management"
+    var data = [];
+
+    $(function() {
+        // 初始化数据, 可以由后台传过来
+        // var data = [];
+
+    });
+
+    function initTable(data){
+        var options = {
+            data: data,
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'index',
+                    align: 'center',
+                    title: "序号",
+                    formatter: function (value, row, index) {
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        var columnId = $.common.sprintf("<input type='hidden' name='goods[%s].id' value='%s'>", index, row.id);
+                        return columnIndex + $.table.serialNumber(index) + columnId;
+                    }
+                },
+                {
+                    field: 'name',
+                    align: 'center',
+                    title: '商品名称',
+                    formatter: function(value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].name' value='%s'>", index, value);
+                        return html;
+                    }
+                },
+
+                {
+                    field: 'price',
+                    align: 'center',
+                    title: '商品单价',
+                    formatter: function(value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].price' value='%s'>", index, value);
+                        return html;
+                    }
+                },
+                {
+                    field: 'date',
+                    align: 'center',
+                    title: '商品数量',
+                    formatter: function(value, row, index) {
+                        console.log(row)
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].date' value='%s'>", index, value);
+                        return html;
+                    }
+                },
+            ]
+        };
+        $.table.init(options);
+    }
+
+    /* 主子表-提交 */
+    function submitHandler(index, layero){
+        var ttt = $("#form").serializeArray();
+        var cart=[
+        ];
+        for (let i = 0; i < ttt.length / 5; i++) {
+            var good = {goodsId: ttt[i*5+1].value, goodsNum: ttt[i*5+4].value};
+            cart.push(good)
+        }
+        $.ajax({
+            url: prefix + "/hhh",
+            method: "POST",
+            data: {goodsTable: JSON.stringify(cart)},
+            success: function (res){
+                alert(res.msg)
+                cart=[];
+                data=[];
+                $.table.destroy();
+            }
+        })
+        // alert(JSON.stringify(data))
+    }
+
+    function submitProduct() {
+          var result = $("#form-add").serializeArray();
+          var good = {goodsId: result[0].value, goodsNum: result[1].value};
+        $.ajax({
+            url: prefix + "/get",
+            method: "POST",
+            data: good,
+            success: function (res){
+                if (res.code != 0){
+                    alert(res.msg)
+                }
+                else{
+                    var temp = res.data;
+                    var good = {
+                        id: temp.goodsId,
+                        name: temp.goodsName,
+                        weight: "",
+                        price:Math.random()*100,
+                        date: $("#num").val(),
+                        type: "0",
+                    }
+                    data.push(good)
+                    $.table.destroy();
+                    initTable(data);
+                }
+            }
+        })
+        // alert(JSON.stringify(data))
+    }
+
+    $("input[name='birthday']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    function addColumn() {
+        var row = {
+            name: "",
+            weight: "",
+            price: "",
+            date: "",
+            type: "",
+        }
+        sub.addColumn(row);
+    }
+
+    $("#bootstrap-table").on("post-body.bs.table", function (e, args) {
+        $("input[name$='date']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true,
+            pickerPosition:'top-right'
+        });
+    });
+</script>
+</body>
+</html>
+
+<!-- 商品类型 -->
+<script id="goodsTypeTpl" type="text/x-jquery-tmpl">
+<div>
+<select class='form-control' name='goods[${index}].type'>
+    <option value="">所有</option>
+    <option value="0" {{if type==="0"}}selected{{/if}}>寒性</option>
+    <option value="1" {{if type==="1"}}selected{{/if}}>热性</option>
+</select>
+</div>
+</script>

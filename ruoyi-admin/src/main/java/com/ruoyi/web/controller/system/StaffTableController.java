@@ -1,6 +1,11 @@
 package com.ruoyi.system.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.utils.ShiroUtils;
+import com.ruoyi.system.service.ISysRoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +28,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 员工管理Controller
  * 
  * @author ruoyi
- * @date 2021-07-06
+ * @date 2021-07-09
  */
 @Controller
 @RequestMapping("/staff_system/staff_management")
@@ -34,11 +39,22 @@ public class StaffTableController extends BaseController
     @Autowired
     private IStaffTableService staffTableService;
 
+    @Autowired
+    private ISysRoleService roleService;
+
     @RequiresPermissions("staff_system:staff_management:view")
     @GetMapping()
     public String staff_management()
     {
-        return prefix + "/staff_management";
+        SysUser currentUser = ShiroUtils.getSysUser();
+        String userName = currentUser.getUserName();
+        if("客户经理1".equals(userName))
+        {
+            return  "test/mistake";
+        }
+        else {
+            return prefix + "/staff_management";
+        }
     }
 
     /**
@@ -72,8 +88,9 @@ public class StaffTableController extends BaseController
      * 新增员工管理
      */
     @GetMapping("/add")
-    public String add()
+    public String add(ModelMap mmap)
     {
+        mmap.put("roles", roleService.selectRoleAll().stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
         return prefix + "/add";
     }
 
@@ -100,6 +117,11 @@ public class StaffTableController extends BaseController
         return prefix + "/edit";
     }
 
+    @GetMapping("/syt")
+    public String Syt()
+    {
+        return  "goods_system/goods_management"+"/syt";
+    }
     /**
      * 修改保存员工管理
      */

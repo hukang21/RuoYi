@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 员工管理对象 staff_table
  * 
  * @author ruoyi
- * @date 2021-07-06
+ * @date 2021-07-09
  */
 public class StaffTable extends BaseEntity
 {
@@ -20,23 +20,23 @@ public class StaffTable extends BaseEntity
 
     /** 员工号 */
     @Excel(name = "员工号")
-    private Long 员工号;
+    private Long staffId;
 
     /** 姓名 */
     @Excel(name = "姓名")
-    private String 姓名;
+    private String staffName;
 
     /** 性别 */
     @Excel(name = "性别")
-    private String 性别;
+    private String staffSex;
 
     /** 职位 */
     @Excel(name = "职位")
-    private String 职位;
+    private String staffJob;
 
     /** 工资 */
     @Excel(name = "工资")
-    private Long 工资;
+    private Long staffSlr;
 
     public void setId(Long id) 
     {
@@ -47,61 +47,61 @@ public class StaffTable extends BaseEntity
     {
         return id;
     }
-    public void set员工号(Long 员工号) 
+    public void setStaffId(Long staffId) 
     {
-        this.员工号 = 员工号;
+        this.staffId = staffId;
     }
 
-    public Long get员工号() 
+    public Long getStaffId() 
     {
-        return 员工号;
+        return staffId;
     }
-    public void set姓名(String 姓名) 
+    public void setStaffName(String staffName) 
     {
-        this.姓名 = 姓名;
-    }
-
-    public String get姓名() 
-    {
-        return 姓名;
-    }
-    public void set性别(String 性别) 
-    {
-        this.性别 = 性别;
+        this.staffName = staffName;
     }
 
-    public String get性别() 
+    public String getStaffName() 
     {
-        return 性别;
+        return staffName;
     }
-    public void set职位(String 职位) 
+    public void setStaffSex(String staffSex) 
     {
-        this.职位 = 职位;
-    }
-
-    public String get职位() 
-    {
-        return 职位;
-    }
-    public void set工资(Long 工资) 
-    {
-        this.工资 = 工资;
+        this.staffSex = staffSex;
     }
 
-    public Long get工资() 
+    public String getStaffSex() 
     {
-        return 工资;
+        return staffSex;
+    }
+    public void setStaffJob(String staffJob) 
+    {
+        this.staffJob = staffJob;
+    }
+
+    public String getStaffJob() 
+    {
+        return staffJob;
+    }
+    public void setStaffSlr(Long staffSlr) 
+    {
+        this.staffSlr = staffSlr;
+    }
+
+    public Long getStaffSlr() 
+    {
+        return staffSlr;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
-            .append("员工号", get员工号())
-            .append("姓名", get姓名())
-            .append("性别", get性别())
-            .append("职位", get职位())
-            .append("工资", get工资())
+            .append("staffId", getStaffId())
+            .append("staffName", getStaffName())
+            .append("staffSex", getStaffSex())
+            .append("staffJob", getStaffJob())
+            .append("staffSlr", getStaffSlr())
             .toString();
     }
 }
