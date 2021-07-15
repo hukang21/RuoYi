@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SelltableMapper">
+    
+    <resultMap type="Selltable" id="SelltableResult">
+        <result property="id"    column="id"    />
+        <result property="gsId"    column="gsId"    />
+        <result property="gsName"    column="gsName"    />
+        <result property="gsNum"    column="gsNum"    />
+        <result property="slTime"    column="slTime"    />
+    </resultMap>
+
+    <sql id="selectSelltableVo">
+        select id, gsId, gsName, gsNum, slTime from selltable
+    </sql>
+
+    <select id="selectSelltableList" parameterType="Selltable" resultMap="SelltableResult">
+        <include refid="selectSelltableVo"/>
+        <where>  
+            <if test="gsId != null "> and gsId = #{gsId}</if>
+            <if test="gsName != null  and gsName != ''"> and gsName like concat('%', #{gsName}, '%')</if>
+            <if test="gsNum != null "> and gsNum = #{gsNum}</if>
+            <if test="slTime != null "> and slTime = #{slTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSelltableById" parameterType="Long" resultMap="SelltableResult">
+        <include refid="selectSelltableVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSelltable" parameterType="Selltable" useGeneratedKeys="true" keyProperty="id">
+        insert into selltable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gsId != null">gsId,</if>
+            <if test="gsName != null">gsName,</if>
+            <if test="gsNum != null">gsNum,</if>
+            <if test="slTime != null">slTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gsId != null">#{gsId},</if>
+            <if test="gsName != null">#{gsName},</if>
+            <if test="gsNum != null">#{gsNum},</if>
+            <if test="slTime != null">#{slTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSelltable" parameterType="Selltable">
+        update selltable
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="gsId != null">gsId = #{gsId},</if>
+            <if test="gsName != null">gsName = #{gsName},</if>
+            <if test="gsNum != null">gsNum = #{gsNum},</if>
+            <if test="slTime != null">slTime = #{slTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSelltableById" parameterType="Long">
+        delete from selltable where id = #{id}
+    </delete>
+
+    <delete id="deleteSelltableByIds" parameterType="String">
+        delete from selltable where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
