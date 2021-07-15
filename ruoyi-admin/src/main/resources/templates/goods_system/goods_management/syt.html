@@ -89,6 +89,16 @@
                     }
                 },
                 {
+                    field: 'id',
+                    align: 'center',
+                    title: 'id',
+                    visible: false,
+                    formatter: function(value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' type='hidden' type='text' name='goods[%s].id' value='%s'>", index, row.id);
+                        return html;
+                    }
+                },
+                {
                     field: 'name',
                     align: 'center',
                     title: '商品名称',
@@ -128,24 +138,36 @@
         var cart=[
         ];
         var sum=0;
+        console.log("----")
         console.log(ttt)
-        for (let i = 0; i < ttt.length / 4; i++) {
-            var good = {Id: ttt[i*4].value, goodsNum: ttt[i*4+3].value};
-            sum=ttt[i*4+2].value*ttt[i*4+3].value+sum;
+        console.log("----")
+        for (let i = 0; i < ttt.length / 5; i++) {
+            var good = {Id: ttt[i*5+1].value, goodsNum: ttt[i*5+4].value};
+            sum=ttt[i*5+3].value*ttt[i*5+4].value+sum;
             cart.push(good)
         }
+        $.ajax({
+            url: "/"+"sellSystem/selltable"+"/tht",
+            method: "POST",
+            data: {goodsTable: JSON.stringify(cart)},
+            success: function (res){
+                alert(res.msg)
+            }
+        })
+        // alert(JSON.stringify(data))
         $.ajax({
             url: prefix + "/hhh",
             method: "POST",
             data: {goodsTable: JSON.stringify(cart)},
             success: function (res){
+                console.log(res);
                 alert("总收费为"+sum+","+res.msg)
                 cart=[];
                 data=[];
                 $.table.destroy();
             }
         })
-        // alert(JSON.stringify(data))
+
     }
 
     function submitProduct() {
@@ -162,7 +184,7 @@
                 else{
                     var temp = res.data;
                     var good = {
-                        id: temp.Id,
+                        id: temp.id,
                         name: temp.goodsName,
                         weight: "",
                         price: temp.goodsId,
@@ -170,6 +192,7 @@
                         type: "0"
                     }
                     data.push(good)
+                    console.log(data)
                     $.table.destroy();
                     initTable(data);
                 }

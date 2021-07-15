@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 14/07/2021 10:04:22
+ Date: 14/07/2021 19:44:04
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table
@@ -80,7 +80,7 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table_column
@@ -111,14 +111,14 @@ CREATE TABLE `goods_table`  (
   `goodsName` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品名',
   `goodsNum` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '库存',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods_table
 -- ----------------------------
-INSERT INTO `goods_table` VALUES (1, 5, '乐事薯片', '44');
-INSERT INTO `goods_table` VALUES (2, 2, '青岛啤酒', '23');
-INSERT INTO `goods_table` VALUES (3, 3, '其他', '52');
+INSERT INTO `goods_table` VALUES (1, 5, '乐事薯片', '14');
+INSERT INTO `goods_table` VALUES (2, 2, '青岛啤酒', '17');
+INSERT INTO `goods_table` VALUES (3, 3, '其他', '43');
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
@@ -268,7 +268,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'hk1626228162316', 1626228254835, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'hk1626262248267', 1626263031059, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -345,9 +345,9 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1626228170000, -1, 5, 'PAUSED', 'CRON', 1626228162000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1626228165000, -1, 5, 'PAUSED', 'CRON', 1626228162000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1626228180000, -1, 5, 'PAUSED', 'CRON', 1626228162000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1626262250000, -1, 5, 'PAUSED', 'CRON', 1626262248000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1626262260000, -1, 5, 'PAUSED', 'CRON', 1626262248000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1626262260000, -1, 5, 'PAUSED', 'CRON', 1626262248000, 0, NULL, 2, '');
 
 -- ----------------------------
 -- Table structure for selltable
@@ -365,6 +365,23 @@ CREATE TABLE `selltable`  (
 -- ----------------------------
 -- Records of selltable
 -- ----------------------------
+INSERT INTO `selltable` VALUES (1, 1, '乐事薯片', 1, '2021-07-14 14:46:44');
+INSERT INTO `selltable` VALUES (2, 1, '乐事薯片', 2, '2021-07-14 14:51:47');
+INSERT INTO `selltable` VALUES (3, 2, '青岛啤酒', 2, '2021-07-14 14:51:47');
+INSERT INTO `selltable` VALUES (4, 3, '其他', 1, '2021-07-14 14:51:47');
+INSERT INTO `selltable` VALUES (5, 1, '乐事薯片', 2, '2021-07-14 14:52:14');
+INSERT INTO `selltable` VALUES (6, 1, '乐事薯片', 4, '2021-07-14 14:53:02');
+INSERT INTO `selltable` VALUES (7, 1, '乐事薯片', 4, '2021-07-14 14:53:21');
+INSERT INTO `selltable` VALUES (8, 2, '青岛啤酒', 4, '2021-07-14 14:53:21');
+INSERT INTO `selltable` VALUES (9, 3, '其他', 4, '2021-07-14 14:53:21');
+INSERT INTO `selltable` VALUES (10, 1, '乐事薯片', 2, '2021-07-14 14:58:30');
+INSERT INTO `selltable` VALUES (11, 1, '乐事薯片', 1, '2021-07-14 14:58:57');
+INSERT INTO `selltable` VALUES (12, 1, '乐事薯片', 1, '2021-07-14 14:59:24');
+INSERT INTO `selltable` VALUES (13, 1, '乐事薯片', 1, '2021-07-14 15:07:29');
+INSERT INTO `selltable` VALUES (14, 1, '乐事薯片', 2, '2021-07-14 15:07:52');
+INSERT INTO `selltable` VALUES (15, 1, '乐事薯片', 3, '2021-07-14 15:21:11');
+INSERT INTO `selltable` VALUES (16, 3, '其他', 3, '2021-07-14 15:27:53');
+INSERT INTO `selltable` VALUES (17, 3, '其他', 1, '2021-07-14 15:40:27');
 
 -- ----------------------------
 -- Table structure for staff_table
@@ -378,7 +395,7 @@ CREATE TABLE `staff_table`  (
   `staffJob` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职位',
   `staffSlr` int(0) NULL DEFAULT NULL COMMENT '工资',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of staff_table
@@ -607,7 +624,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 262 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 285 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -783,6 +800,20 @@ INSERT INTO `sys_logininfor` VALUES (267, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (268, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 08:43:48');
 INSERT INTO `sys_logininfor` VALUES (269, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 09:37:29');
 INSERT INTO `sys_logininfor` VALUES (270, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 10:02:49');
+INSERT INTO `sys_logininfor` VALUES (271, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 10:32:00');
+INSERT INTO `sys_logininfor` VALUES (272, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 11:11:41');
+INSERT INTO `sys_logininfor` VALUES (273, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 11:22:42');
+INSERT INTO `sys_logininfor` VALUES (274, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 11:27:32');
+INSERT INTO `sys_logininfor` VALUES (275, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 11:35:01');
+INSERT INTO `sys_logininfor` VALUES (276, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 14:31:26');
+INSERT INTO `sys_logininfor` VALUES (277, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 14:35:38');
+INSERT INTO `sys_logininfor` VALUES (278, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 14:41:50');
+INSERT INTO `sys_logininfor` VALUES (279, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 14:42:59');
+INSERT INTO `sys_logininfor` VALUES (280, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 14:46:24');
+INSERT INTO `sys_logininfor` VALUES (281, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 14:58:13');
+INSERT INTO `sys_logininfor` VALUES (282, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 15:06:41');
+INSERT INTO `sys_logininfor` VALUES (283, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 15:45:19');
+INSERT INTO `sys_logininfor` VALUES (284, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-07-14 19:30:54');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -806,7 +837,7 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2071 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2077 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -973,7 +1004,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 306 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 310 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -1426,7 +1457,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2021-07-14 10:02:49', '2021-07-04 10:30:27', 'admin', '2021-07-04 10:30:27', '', '2021-07-14 10:02:49', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2021-07-14 19:30:55', '2021-07-04 10:30:27', 'admin', '2021-07-04 10:30:27', '', '2021-07-14 19:30:54', '管理员');
 INSERT INTO `sys_user` VALUES (104, NULL, 'stf1', '收银员1', '00', '', '', '0', '', 'f6ccda27969f0a2f1c08cab86d60c1db', '3287c8', '0', '0', '127.0.0.1', '2021-07-14 08:27:51', NULL, 'admin', '2021-07-09 10:25:51', '', '2021-07-14 08:27:51', NULL);
 INSERT INTO `sys_user` VALUES (105, NULL, 'cm1', '客户经理1', '00', '', '', '0', '', 'a8cb3293d1438a187642d6d10cfc257a', 'd4e675', '0', '0', '127.0.0.1', '2021-07-09 15:46:11', NULL, 'admin', '2021-07-09 10:29:09', '', '2021-07-09 15:46:10', NULL);
 INSERT INTO `sys_user` VALUES (106, NULL, 'gm1', '总经理1', '00', '', '', '0', '', 'f5d7beaf730026cac43dc1c2f93813f5', 'ec0302', '0', '0', '127.0.0.1', '2021-07-14 08:29:24', NULL, 'admin', '2021-07-09 10:29:35', '', '2021-07-14 08:29:24', NULL);
@@ -1453,7 +1484,7 @@ CREATE TABLE `sys_user_online`  (
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('7e0f676e-3ee8-43ba-ad07-f8fce8991ed9', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', 'on_line', '2021-07-14 09:37:30', '2021-07-14 10:02:49', 1800000);
+INSERT INTO `sys_user_online` VALUES ('0358fd07-73e6-4fa2-81ab-61c41b882427', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', 'on_line', '2021-07-14 19:30:53', '2021-07-14 19:30:55', 1800000);
 
 -- ----------------------------
 -- Table structure for sys_user_post
