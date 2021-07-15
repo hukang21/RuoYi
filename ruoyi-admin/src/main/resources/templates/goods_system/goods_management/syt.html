@@ -127,8 +127,11 @@
         var ttt = $("#form").serializeArray();
         var cart=[
         ];
-        for (let i = 0; i < ttt.length / 5; i++) {
-            var good = {goodsId: ttt[i*5+1].value, goodsNum: ttt[i*5+4].value};
+        var sum=0;
+        console.log(ttt)
+        for (let i = 0; i < ttt.length / 4; i++) {
+            var good = {Id: ttt[i*4].value, goodsNum: ttt[i*4+3].value};
+            sum=ttt[i*4+2].value*ttt[i*4+3].value+sum;
             cart.push(good)
         }
         $.ajax({
@@ -136,7 +139,7 @@
             method: "POST",
             data: {goodsTable: JSON.stringify(cart)},
             success: function (res){
-                alert(res.msg)
+                alert("总收费为"+sum+","+res.msg)
                 cart=[];
                 data=[];
                 $.table.destroy();
@@ -147,7 +150,7 @@
 
     function submitProduct() {
           var result = $("#form-add").serializeArray();
-          var good = {goodsId: result[0].value, goodsNum: result[1].value};
+          var good = {Id: result[0].value, goodsNum: result[1].value};
         $.ajax({
             url: prefix + "/get",
             method: "POST",
@@ -159,12 +162,12 @@
                 else{
                     var temp = res.data;
                     var good = {
-                        id: temp.goodsId,
+                        id: temp.Id,
                         name: temp.goodsName,
                         weight: "",
-                        price:Math.random()*100,
+                        price: temp.goodsId,
                         date: $("#num").val(),
-                        type: "0",
+                        type: "0"
                     }
                     data.push(good)
                     $.table.destroy();

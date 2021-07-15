@@ -73,7 +73,7 @@ public class GoodsTableController extends BaseController
     public AjaxResult get(GoodsTable goodsTable)
     {
         // 根据goodsId找到唯一的一条数据
-        GoodsTable table = goodsTableService.selectGoodsTableByGoodsId(goodsTable);
+        GoodsTable table = goodsTableService.selectGoodsTableById(goodsTable.getId());
         // 对数据进行处理
         if (table == null){
             return AjaxResult.error("不存在该商品，请重新输入！");
@@ -95,7 +95,7 @@ public class GoodsTableController extends BaseController
         // 根据goodsId找到唯一的一条数据
         for(int i=0;i<parse.size();i++) {
             JSONObject id = (JSONObject) parse.get(i);
-            GoodsTable table = goodsTableService.selectGoodsTableById(Long.parseLong(id.get("goodsId").toString()));
+            GoodsTable table = goodsTableService.selectGoodsTableById(Long.parseLong(id.get("Id").toString()));
             // 对数据进行处理
             Integer viewNum = Integer.parseInt( table.getGoodsNum());
             viewNum=Integer.parseInt(table.getGoodsNum())-Integer.parseInt(id.get("goodsNum").toString());
