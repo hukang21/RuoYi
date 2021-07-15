@@ -13,7 +13,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  */
 public class GoodsTable extends BaseEntity
 {
-   // 测试
+
     private static final long serialVersionUID = 1L;
 
     /** id */
